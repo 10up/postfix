@@ -15,11 +15,8 @@ stages:
     DOCKER_TLS_CERTDIR: ""
     DOCKER_HOST: tcp://localhost:2375
   script:
-    #- cd ${BASE:?}
-    - export DOCKER_TAG=${PHP_VERSION}
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-    - docker build --pull --network host --build-arg PHP_VERSION=$PHP_VERSION --tag $CI_REGISTRY_IMAGE:${DOCKER_TAG} --tag $CI_REGISTRY_IMAGE:${DOCKER_TAG}-${CI_COMMIT_SHORT_SHA}  .
-    - docker push $CI_REGISTRY_IMAGE:${DOCKER_TAG}
+    - docker build --pull --network host --tag $CI_REGISTRY_IMAGE:${DOCKER_TAG}-${CI_COMMIT_SHORT_SHA}  .
     - docker push $CI_REGISTRY_IMAGE:${DOCKER_TAG}-${CI_COMMIT_SHORT_SHA}
   when: on_success
   only:

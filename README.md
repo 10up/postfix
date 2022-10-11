@@ -1,6 +1,6 @@
 # Postfix
 
-A simple smarthost for Kubernetes pods
+A simple email smarthost.
 
 ## Usage
 
@@ -21,10 +21,10 @@ Configuration is basic and is done using the  environment variables listed below
 ```
 docker run --rm -ti --name postfix \
   -e MY_NETWORKS=0.0.0.0/0 \
-	-e SASL_AUTH="usrename:password" \
-	-e RELAY=smtp-relay.mailgun.org \
-	-e TLS=true \
-	ghcr.io/10up/postfix:latest
+  -e SASL_AUTH="usrename:password" \
+  -e RELAY=smtp-relay.mailgun.org \
+  -e TLS=true \
+  ghcr.io/10up/postfix:latest
 ```
 
 ## Support Level

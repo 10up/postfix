@@ -1,6 +1,7 @@
 FROM alpine:latest
 
 LABEL org.opencontainers.image.source https://github.com/10up/postfix
+LABEL org.opencontainers.image.documentation https://github.com/10up/postfix/blob/trunk/README.md
 
 RUN \
   apk add --no-cache \

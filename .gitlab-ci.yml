@@ -1,8 +1,0 @@
----
-include:
-  - project: 10up-build/ci-library
-    ref: master
-    file: /main.yml
-
-Build:
-  extends: .node-build-common

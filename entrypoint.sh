@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 set -e
 
 # Avoid  warning: smtputf8_enable is true, but EAI support is not compiled in
@@ -29,7 +29,7 @@ if [[ -n "$MY_NETWORKS" ]]; then
 fi
 
 if [[ -n "$MY_DESTINATION" ]]; then
-	postconf -e mydestination="$MY_DESTINATION"
+	postconf -e mydestination="$MY_DESTINATION" 
 fi
 
 if [[ -n "$ROOT_ALIAS" ]]; then
@@ -62,7 +62,7 @@ fi
 if [[ -n "$SASL_AUTH" ]]; then
 	cat >> /etc/postfix/main.cf <<- EOF
 	smtp_sasl_auth_enable = yes
-	smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd
+	smtp_sasl_password_maps = lmdb:/etc/postfix/sasl_passwd
 	smtp_sasl_security_options = noanonymous
 	EOF
 
@@ -75,8 +75,6 @@ if [[ -n "$SASL_AUTH" ]]; then
 	# cleanup
 	rm /etc/postfix/sasl_passwd
 
-	# set permissions
-	chmod 600 /etc/postfix/sasl_passwd.db
 fi
 
 if [[ -f "/usr/libexec/postfix/master" ]]; then
@@ -92,4 +90,6 @@ if [[ -z "$cmd" ]]; then
 	exit 1
 fi
 
-"$cmd" -c /etc/postfix -d 2>&1
+postconf -e maillog_file="/dev/stdout"
+
+exec postfix start-fg

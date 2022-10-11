@@ -1,5 +1,7 @@
 FROM alpine:latest
 
+LABEL org.opencontainers.image.source https://github.com/10up/postfix
+
 RUN \
   apk add --no-cache \
     bash \
